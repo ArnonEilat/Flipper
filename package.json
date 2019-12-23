@@ -1,0 +1,84 @@
+{
+  "name": "flipper",
+  "displayName": "Flipper",
+  "description": "Extension to flip things around",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.41.0"
+  },
+  "author": {
+    "name": "Arnon Eilat"
+  },
+  "publisher": "Arnon",
+  "homepage": "https://github.com/ArnonEilat/flipper",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ArnonEilat/flipper"
+  },
+  "categories": [
+    "Other"
+  ],
+  "icon": "images/icon.png",
+  "galleryBanner": {
+    "color": "#003a66",
+    "theme": "dark"
+  },
+  "bugs": {
+    "url": "https://github.com/ArnonEilat/flipper/issues"
+  },
+  "activationEvents": [
+    "onCommand:flipper.flipUp",
+    "onCommand:flipper.flipDone"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "keybindings": [
+      {
+        "command": "flipper.flipUp",
+        "key": "alt+a"
+      },
+      {
+        "command": "flipper.flipDone",
+        "key": "alt+z"
+      }
+    ],
+    "commands": [
+      {
+        "command": "flipper.flipUp",
+        "title": "Flip Up"
+      },
+      {
+        "command": "flipper.flipDone",
+        "title": "Flip Done"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile",
+    "test": "node ./out/test/runTest.js",
+    "prettier": "node ./node_modules/.bin/prettier --write '*.{js,ts,json}'"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.1.1",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.11.7",
+    "@types/vscode": "^1.41.0",
+    "glob": "^7.1.5",
+    "husky": "^3.1.0",
+    "mocha": "^6.2.2",
+    "prettier": "^1.19.1",
+    "pretty-quick": "^2.0.1",
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.4",
+    "vscode-test": "^1.2.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged",
+      "pre-push": "npm test"
+    }
+  }
+}

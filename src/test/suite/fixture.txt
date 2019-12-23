@@ -1,0 +1,37 @@
+
+top: 100%;
+top: 104px;
+
+opacity: 0.5;
+
+background: rgba(0, 0, 0, 0.9);
+
+width: calc(60px / 9 + 0 * 60px / 9);
+
+animation-delay: calc(50ms * 1);
+
+cubic-bezier(0.68, -0.75, 0.265, 1.75) infinite forwards;
+
+100% {
+    transform: rotate(360deg);
+}
+
+const something = 4; 
+
+for (let index = 0; index < 67; index++) {}
+
+String.fromCharCode(0);
+String.fromCharCode(true);
+
+
+if(true === false){
+  
+}
+
+if(a === b){}
+
+let c = 4;
+c += 4;
+
+
+something={true}
