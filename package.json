@@ -59,20 +59,23 @@
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile",
     "test": "node ./out/test/runTest.js",
+    "lint": "eslint src",
     "prettier": "node ./node_modules/.bin/prettier --write '*.{js,ts,json}'"
   },
   "devDependencies": {
     "@types/glob": "^7.1.1",
     "@types/mocha": "^5.2.7",
-    "@types/node": "^12.11.7",
+    "@types/node": "^18.19.0",
     "@types/vscode": "^1.41.0",
+    "eslint": "^9.24.0",
+    "eslint-plugin-perfectionist": "^4.10.1",
     "glob": "^7.1.5",
     "husky": "^3.1.0",
     "mocha": "^6.2.2",
     "prettier": "^1.19.1",
     "pretty-quick": "^2.0.1",
-    "tslint": "^5.20.0",
-    "typescript": "^3.6.4",
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^8.29.1",
     "vscode-test": "^1.2.2"
   },
   "husky": {
