@@ -5,6 +5,10 @@
     "node_modules": true,
     ".vscode-test": true
   },
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
   "search.exclude": {
     "out": true
   }
