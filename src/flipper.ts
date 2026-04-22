@@ -23,6 +23,7 @@ const isNumeric = (num: any) => !isNaN(num);
 
 const ppRegEx = /(\S+)(\+\+)/;
 const mmRegEx = /(\S+)(\-\-)/;
+const identifierRegex = /^[A-Za-z_$][\w$]*$/;
 
 const countDecimals = (value: number) => {
   if (Math.floor(value) === value) {
@@ -60,7 +61,11 @@ const handleNumber = (str: string, dir: DIRECTION): string => {
   return (num - 1).toFixed(decimals);
 };
 
-export const getReplacement = (str: string, dir: DIRECTION): string => {
+export const getReplacement = (
+  str: string,
+  dir: DIRECTION,
+  booleanContext: boolean = false,
+): string => {
   if (str === '') {
     return '';
   }
@@ -87,6 +92,16 @@ export const getReplacement = (str: string, dir: DIRECTION): string => {
 
   if (Array.isArray(mmArr) && mmArr.length > 1) {
     return mmArr[1] + '++';
+  }
+
+  if (booleanContext) {
+    if (str.startsWith('!') && identifierRegex.test(str.slice(1))) {
+      return str.slice(1);
+    }
+
+    if (identifierRegex.test(str)) {
+      return '!' + str;
+    }
   }
 
   // if (str.length === 1) {

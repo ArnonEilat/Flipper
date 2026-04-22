@@ -35,3 +35,9 @@ c += 4;
 
 
 something={true}
+
+if (someCondition) {}
+
+if (!negated) {}
+
+foo(bar);

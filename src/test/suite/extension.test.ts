@@ -161,6 +161,57 @@ suite('Extension Test Suite', () => {
     });
   });
 
+  test(`Negate identifier: 'someCondition' to '!someCondition'`, () => {
+    return getTextEditor(textEditor => {
+      const lnNum = findLine(text, 'if (someCondition) {}');
+
+      textEditor.selection = new Selection(lnNum, 8, lnNum, 9);
+
+      return flip(DIRECTION.UP).then(() => {
+        const rng = new Range(lnNum, 0, lnNum, 30);
+        const actual = textEditor.document.getText(rng);
+
+        assert.equal(actual.trim(), 'if (!someCondition) {}');
+
+        return Promise.resolve();
+      });
+    });
+  });
+
+  test(`Identifier outside boolean context is not negated`, () => {
+    return getTextEditor(textEditor => {
+      const lnNum = findLine(text, 'foo(bar);');
+
+      textEditor.selection = new Selection(lnNum, 5, lnNum, 6);
+
+      return flip(DIRECTION.UP).then(() => {
+        const rng = new Range(lnNum, 0, lnNum, 20);
+        const actual = textEditor.document.getText(rng);
+
+        assert.equal(actual.trim(), 'foo(bar);');
+
+        return Promise.resolve();
+      });
+    });
+  });
+
+  test(`Un-negate identifier: '!negated' to 'negated'`, () => {
+    return getTextEditor(textEditor => {
+      const lnNum = findLine(text, 'if (!negated) {}');
+
+      textEditor.selection = new Selection(lnNum, 8, lnNum, 9);
+
+      return flip(DIRECTION.DONE).then(() => {
+        const rng = new Range(lnNum, 0, lnNum, 30);
+        const actual = textEditor.document.getText(rng);
+
+        assert.equal(actual.trim(), 'if (negated) {}');
+
+        return Promise.resolve();
+      });
+    });
+  });
+
   test(`Change 'something={true} to 'something={false}'`, () => {
     return getTextEditor(textEditor => {
       const lnNum = findLine(text, 'something={true}');

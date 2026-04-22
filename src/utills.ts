@@ -46,6 +46,39 @@ const shouldLeftTrim = (str: string): boolean => {
   }
 };
 
+export const isInBooleanContext = (
+  line: string,
+  tokenStart: number,
+): boolean => {
+  const prefix = line.slice(0, tokenStart).replace(/\s+$/, '');
+  if (prefix === '') {
+    return false;
+  }
+
+  const lastChar = prefix[prefix.length - 1];
+
+  if (lastChar === '!') {
+    return true;
+  }
+
+  if (prefix.endsWith('&&') || prefix.endsWith('||')) {
+    return true;
+  }
+
+  if (lastChar === '(') {
+    const beforeParen = prefix.slice(0, -1).replace(/\s+$/, '');
+    if (/\b(if|while)$/.test(beforeParen)) {
+      return true;
+    }
+  }
+
+  if (/\breturn$/.test(prefix)) {
+    return true;
+  }
+
+  return false;
+};
+
 export const getWordNRange = (
   selection: Selection,
   editor: TextEditor,

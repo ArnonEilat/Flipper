@@ -8,7 +8,7 @@ import {
 } from 'vscode';
 import { getReplacement } from './flipper';
 import { DIRECTION, emptyWordNRange, WordNRange } from './types';
-import { getWordNRange, cssRegex } from './utills';
+import { getWordNRange, cssRegex, isInBooleanContext } from './utills';
 
 const shouldIgnore = (word: string) => {
   switch (word) {
@@ -45,12 +45,16 @@ export const flip = (dir: DIRECTION) => {
 
   const editCallback = (builder: TextEditorEdit) => {
     for (const selection of editor.selections) {
+      const lineText = editor.document.lineAt(selection.active.line).text;
       let replacement = '';
       let wNr: WordNRange = emptyWordNRange;
 
       for (const re of regexArr) {
         wNr = getWordNRange(selection, editor, re);
-        replacement = getReplacement(wNr.word, dir);
+        const boolCtx =
+          wNr.word !== '' &&
+          isInBooleanContext(lineText, wNr.range.start.character);
+        replacement = getReplacement(wNr.word, dir, boolCtx);
         if (replacement !== wNr.word) {
           break;
         }
