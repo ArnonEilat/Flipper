@@ -2,8 +2,6 @@
 
 import { Range } from 'vscode';
 
-/** @format */
-
 export enum DIRECTION {
   UP,
   DONE,

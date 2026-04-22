@@ -1,10 +1,10 @@
 import { DIRECTION } from './types';
 
-type replacersMap = {
+type ReplacersMap = {
   [key: string]: string;
 };
 
-const map: replacersMap = {
+const map: ReplacersMap = {
   true: 'false',
   '===': '!==',
   '==': '!=',
@@ -19,46 +19,30 @@ const map: replacersMap = {
   '*=': '/=',
 };
 
-const isNumeric = (num: any) => !isNaN(num);
+const isNumeric = (str: string): boolean => str !== '' && !isNaN(Number(str));
 
 const ppRegEx = /(\S+)(\+\+)/;
 const mmRegEx = /(\S+)(\-\-)/;
 const identifierRegex = /^[A-Za-z_$][\w$]*$/;
 
-const countDecimals = (value: number) => {
+const countDecimals = (value: number): number => {
   if (Math.floor(value) === value) {
     return 0;
   }
-  return value.toString().split('.')[1].length || 0;
+  return value.toString().split('.')[1].length;
 };
 
 const handleNumber = (str: string, dir: DIRECTION): string => {
   const num: number = parseFloat(str);
+  const sign = dir === DIRECTION.UP ? 1 : -1;
 
   if (Number.isInteger(num)) {
-    if (dir === DIRECTION.UP) {
-      return String(num + 1);
-    }
-    const numToReturn = num - 1;
-    if (numToReturn < 0) {
-      return '' + numToReturn;
-    }
-    return String(numToReturn);
+    return String(num + sign);
   }
 
   const decimals = countDecimals(num);
-  if (num > 0 && num < 1) {
-    if (dir === DIRECTION.UP) {
-      return (num + 0.1).toFixed(decimals);
-    }
-    return (num - 0.1).toFixed(decimals);
-  }
-
-  if (dir === DIRECTION.UP) {
-    return (num + 1).toFixed(decimals);
-  }
-
-  return (num - 1).toFixed(decimals);
+  const step = num > -1 && num < 1 ? 0.1 : 1;
+  return (num + sign * step).toFixed(decimals);
 };
 
 export const getReplacement = (
@@ -69,7 +53,7 @@ export const getReplacement = (
   if (str === '') {
     return '';
   }
-  if (isNumeric(str) === true) {
+  if (isNumeric(str)) {
     return handleNumber(str, dir);
   }
 
@@ -83,13 +67,11 @@ export const getReplacement = (
   }
 
   const ppArr = ppRegEx.exec(str);
-
   if (Array.isArray(ppArr) && ppArr.length > 1) {
     return ppArr[1] + '--';
   }
 
   const mmArr = mmRegEx.exec(str);
-
   if (Array.isArray(mmArr) && mmArr.length > 1) {
     return mmArr[1] + '++';
   }
@@ -103,14 +85,6 @@ export const getReplacement = (
       return '!' + str;
     }
   }
-
-  // if (str.length === 1) {
-  //   const charCode: number = str.charCodeAt(0);
-  //   if (dir === DIRECTION.UP) {
-  //     return String.fromCodePoint(charCode + 1);
-  //   }
-  //   return String.fromCodePoint(charCode - 1);
-  // }
 
   return str;
 };

@@ -53,17 +53,13 @@ suite('Extension Test Suite', () => {
       const lnNum = findLine(text, 'String.fromCharCode(0);');
       textEditor.selection = new Selection(lnNum, 20, lnNum, 21);
 
-      const resolver = () => {
-        const rng = new Range(lnNum, 0, lnNum, 40);
-        const actual = textEditor.document.getText(rng);
-
-        assert.equal(actual, 'String.fromCharCode(-2);');
-        return Promise.resolve();
-      };
-
-      return flip(DIRECTION.DONE).then(() => {
-        flip(DIRECTION.DONE).then(resolver);
-      });
+      return flip(DIRECTION.DONE)
+        .then(() => flip(DIRECTION.DONE))
+        .then(() => {
+          const rng = new Range(lnNum, 0, lnNum, 40);
+          const actual = textEditor.document.getText(rng);
+          assert.equal(actual, 'String.fromCharCode(-2);');
+        });
     });
   });
 

@@ -1,7 +1,7 @@
 import { WordNRange, emptyWordNRange } from './types';
 import { Position, Range, Selection, TextEditor } from 'vscode';
 
-export const cssRegex: RegExp = /(\d*\.?\d+)\s?(px|em|vh|vw|ms|ex|%|in|cn|mm|pt|pc+)/;
+export const cssRegex: RegExp = /(\d*\.?\d+)\s?(px|em|vh|vw|ms|ex|%|in|cn|mm|pt|pc)/;
 
 const cssColor: RegExp = /(rgb[a]*|hsl[a]*)\([\-]*(\d*\.?\d+)/;
 
@@ -17,7 +17,6 @@ const shouldRightTrim = (str: string): boolean => {
     case ')':
     case ']':
     case '%':
-    case ';':
     case ',':
     case ' ':
     case '}':
@@ -118,10 +117,14 @@ export const getWordNRange = (
   }
 
   if (isCssUnit(word)) {
-    const { line, character } = range.end;
-    const endPos: Position = new Position(line, character - 2);
-    range = new Range(range.start, endPos);
-    word = editor.document.getText(range);
+    const m = cssRegex.exec(word);
+    if (m && m[1]) {
+      const trim = word.length - (m.index + m[1].length);
+      const { line, character } = range.end;
+      const endPos: Position = new Position(line, character - trim);
+      range = new Range(range.start, endPos);
+      word = editor.document.getText(range);
+    }
   }
 
   return { range, word };

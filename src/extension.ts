@@ -2,7 +2,6 @@ import {
   commands,
   Disposable,
   ExtensionContext,
-  TextEditor,
   TextEditorEdit,
   window,
 } from 'vscode';
@@ -35,12 +34,12 @@ const regexArr = [
 ];
 
 export const flip = (dir: DIRECTION) => {
-  const editor: TextEditor = window.activeTextEditor as TextEditor;
+  const editor = window.activeTextEditor;
 
   if (!editor) {
-    const msg: string = 'Error occurred while trying to get editor instance';
+    const msg = 'Error occurred while trying to get editor instance';
     window.showErrorMessage(msg);
-    return Promise.reject();
+    return Promise.reject(new Error(msg));
   }
 
   const editCallback = (builder: TextEditorEdit) => {
