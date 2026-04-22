@@ -8,8 +8,8 @@ export enum DIRECTION {
 }
 
 export interface WordNRange {
-  word: string;
   range: Range;
+  word: string;
 }
 
 export const emptyWordNRange: WordNRange = {

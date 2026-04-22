@@ -5,9 +5,10 @@ import {
   TextEditorEdit,
   window,
 } from 'vscode';
+
 import { getReplacement } from './flipper';
 import { DIRECTION, emptyWordNRange, WordNRange } from './types';
-import { getWordNRange, cssRegex, isInBooleanContext } from './utills';
+import { cssRegex, getWordNRange, isInBooleanContext } from './utills';
 
 const shouldIgnore = (word: string) => {
   switch (word) {

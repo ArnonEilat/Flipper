@@ -3,6 +3,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as vscode from 'vscode';
 import { Range, Selection, TextDocument, TextEditor } from 'vscode';
+
 import { flip } from '../../extension';
 import { DIRECTION } from '../../types';
 

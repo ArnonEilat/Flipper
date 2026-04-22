@@ -1,5 +1,6 @@
-import { WordNRange, emptyWordNRange } from './types';
 import { Position, Range, Selection, TextEditor } from 'vscode';
+
+import { emptyWordNRange, WordNRange } from './types';
 
 export const cssRegex: RegExp = /(\d*\.?\d+)\s?(px|em|vh|vw|ms|ex|%|in|cn|mm|pt|pc)/;
 

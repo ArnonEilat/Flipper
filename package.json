@@ -60,6 +60,7 @@
     "pretest": "npm run compile",
     "test": "node ./out/test/runTest.js",
     "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
     "prettier": "node ./node_modules/.bin/prettier --write '*.{js,ts,json}'"
   },
   "devDependencies": {
