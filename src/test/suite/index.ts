@@ -2,13 +2,12 @@ import * as glob from 'glob';
 import * as Mocha from 'mocha';
 import * as path from 'path';
 
-export function run(): Promise<void> {
+export const run = (): Promise<void> => {
   // Create the mocha test
   const mocha = new Mocha({
     ui: 'tdd',
     timeout: 2000,
   });
-  mocha.useColors(true);
 
   const testsRoot = path.resolve(__dirname, '..');
 
@@ -35,4 +34,4 @@ export function run(): Promise<void> {
       }
     });
   });
-}
+};
