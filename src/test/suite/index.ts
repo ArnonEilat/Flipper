@@ -1,5 +1,5 @@
-import * as glob from 'glob';
-import * as Mocha from 'mocha';
+import glob = require('glob');
+import Mocha = require('mocha');
 import * as path from 'path';
 
 export const run = (): Promise<void> => {
