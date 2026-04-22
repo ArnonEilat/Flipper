@@ -72,12 +72,12 @@
     "eslint-plugin-perfectionist": "^4.10.1",
     "glob": "^7.1.5",
     "husky": "^3.1.0",
-    "mocha": "^6.2.2",
+    "mocha": "^11.7.5",
     "prettier": "^1.19.1",
     "pretty-quick": "^2.0.1",
     "typescript": "^5.4.5",
     "typescript-eslint": "^8.29.1",
-    "vscode-test": "^1.2.2"
+    "@vscode/test-electron": "^2.5.2"
   },
   "husky": {
     "hooks": {
